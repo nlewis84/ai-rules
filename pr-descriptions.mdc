@@ -1,0 +1,29 @@
+---
+description: "Guidelines for generating concise, well-structured GitHub PR descriptions with clear issue tracking, solution summaries, and testing instructions. Emphasizes brevity and actionable content for efficient code review."
+alwaysApply: false
+---
+Example of good PR description format:
+
+```markdown
+## 🐛 Issue
+
+Closes APO-4736
+
+## ✏️ Solution
+
+Enhanced anonymous ID handling and analytics integration:
+
+- Preserve custom anonymous IDs during login
+- Fix identify calls for user association
+- Add reset to clear Segment state
+- Update OTP flow with proper handling
+- Add tests for anonymous sessions and flows
+
+## 🔬 To Test
+
+1. Set breakpoint at `api.otp.tsx:267` - Login via OTP, verify anonymous ID preservation
+2. Set breakpoint at `_layout.tsx:356` - After login, verify analytics identify call with correct user ID
+3. Anonymous browsing → Login → Logout flow
+4. Verify Segment anonymous ID changes after logout
+5. Confirm `previousAnonymousUserId` is set during login
+```

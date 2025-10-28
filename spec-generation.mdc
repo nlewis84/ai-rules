@@ -1,0 +1,358 @@
+---
+description: Defines principles and structure for generating technical specification documents appropriate for principal-level developers who value clarity, testing, and following established patterns over custom solutions
+alwaysApply: false
+---
+# Spec Generation Rules
+
+## Overview
+This file defines the principles and structure for generating technical specification documents that are appropriate for principal-level developers who value clarity, testing, and following established patterns over custom solutions.
+
+**Announce at start:** "I'm using the Spec Generation skill to create technical specifications following established patterns."
+
+## Core Principles
+
+### 1. Clarity Over Cleverness
+- Write specifications that prioritize clear, understandable requirements
+- Avoid prescriptive implementation details - leave those to the implementer
+- Focus on what needs to be done, not how to do it
+- Use plain language and avoid unnecessary technical jargon
+
+### 2. Follow Best Practices Over Custom Solutions
+- Always prefer established patterns and best practices from the ecosystem
+- Reference existing implementations as examples of proper patterns
+- Avoid reinventing wheels or creating custom solutions when standard approaches exist
+- Emphasize consistency with existing codebase patterns
+
+### 3. Test-Driven Development Approach
+- Always include comprehensive testing strategy
+- Document current state with tests before making changes
+- Use TDD methodology for implementation phases
+- Include regression testing and validation phases
+
+### 4. Backward Compatibility
+- Ensure no breaking changes to existing functionality
+- Maintain existing behavior and data integrity
+- Include rollback strategies and risk mitigation
+- Consider gradual rollout approaches
+
+## Required Spec Structure
+
+### 1. Overview
+- Brief description of the problem and solution approach
+- Reference to original issue or requirements
+- High-level approach statement
+
+### 2. Problem Statement
+- Clear articulation of the current problem
+- Why the current approach is insufficient
+- What needs to be changed
+
+### 3. Current State Analysis
+- Detailed analysis of existing implementation
+- Identification of specific issues or gaps
+- Reference to working implementations (if applicable)
+- Clear comparison between current and desired state
+
+### 4. Requirements
+- **Functional Requirements**: What the system must do
+- **Non-Functional Requirements**: Performance, compatibility, consistency requirements
+- Clear, testable requirements
+- Prioritized by importance
+
+### 5. Test-Driven Development Strategy
+- **Phase 1**: Document current state with comprehensive tests
+- **Phase 2**: Implement changes using TDD approach
+- **Phase 3**: Validation and cleanup with regression testing
+- Each phase should have clear objectives and test categories
+
+### 6. Implementation Strategy
+- **Principles**: Core guiding principles for implementation
+- **Key Changes Required**: High-level changes needed
+- **Files Requiring Changes**: List of affected files with brief descriptions
+- Avoid prescriptive code examples
+
+### 7. Success Criteria
+- **Functional Success**: What the system should accomplish
+- **Technical Success**: Implementation quality metrics
+- **Business Success**: Value delivered (if applicable)
+
+### 8. Risk Mitigation
+- Identify potential risks
+- Provide specific mitigation strategies
+- Include rollback plans
+- Consider performance and compatibility impacts
+
+### 9. Rollback Strategy
+- Feature flag approach (if applicable)
+- Gradual rollout plan
+- Monitoring and alerting
+- Quick rollback procedures
+
+## Writing Guidelines
+
+### Do's
+- Use clear, concise language
+- Focus on requirements and principles
+- Include comprehensive testing strategy
+- Reference existing patterns and implementations
+- Emphasize backward compatibility
+- Provide clear success criteria
+- Include risk mitigation strategies
+
+### Don'ts
+- Don't include prescriptive code examples
+- Don't specify implementation details
+- Don't skip testing strategy
+- Don't ignore backward compatibility
+- Don't create custom solutions when standard ones exist
+- Don't forget rollback strategies
+- Don't include timeline estimates (leave to project management)
+
+## Quality Checklist
+
+Before finalizing a spec, ensure it includes:
+
+- [ ] Clear problem statement and current state analysis
+- [ ] Comprehensive requirements (functional and non-functional)
+- [ ] Test-driven development strategy with multiple phases
+- [ ] Implementation strategy focused on principles, not details
+- [ ] Success criteria that are measurable
+- [ ] Risk mitigation and rollback strategies
+- [ ] References to existing patterns and best practices
+- [ ] Emphasis on backward compatibility
+- [ ] No prescriptive implementation code
+- [ ] Appropriate for principal-level developers
+
+## Example Structure
+
+```markdown
+# [Feature Name] Implementation Spec
+
+## Overview
+[Brief description and approach]
+
+## Problem Statement
+[Clear articulation of the problem]
+
+## Current State Analysis
+[Detailed analysis of existing implementation]
+
+## Requirements
+### Functional Requirements
+[What the system must do]
+
+### Non-Functional Requirements
+[Performance, compatibility, consistency]
+
+## Test-Driven Development Strategy
+### Phase 1: Document Current State with Tests
+[Comprehensive testing of current behavior]
+
+### Phase 2: Implement Changes (TDD)
+[Test-first implementation approach]
+
+### Phase 3: Validation and Cleanup
+[Regression testing and validation]
+
+## Implementation Strategy
+### Principles
+[Core guiding principles]
+
+### Key Changes Required
+[High-level changes needed]
+
+### Files Requiring Changes
+[Affected files with descriptions]
+
+## Success Criteria
+[Measurable success metrics]
+
+## Risk Mitigation
+[Risk identification and mitigation strategies]
+
+## Rollback Strategy
+[Rollback procedures and monitoring]
+```
+
+## Notes
+- Specs should be self-contained and not require external context
+- Focus on enabling implementers to make good decisions
+- Prioritize maintainability and consistency
+- Always consider the broader system impact
+- Remember that specs are living documents that may evolve
+# Spec Generation Rules
+
+## Overview
+This file defines the principles and structure for generating technical specification documents that are appropriate for principal-level developers who value clarity, testing, and following established patterns over custom solutions.
+
+## Core Principles
+
+### 1. Clarity Over Cleverness
+- Write specifications that prioritize clear, understandable requirements
+- Avoid prescriptive implementation details - leave those to the implementer
+- Focus on what needs to be done, not how to do it
+- Use plain language and avoid unnecessary technical jargon
+
+### 2. Follow Best Practices Over Custom Solutions
+- Always prefer established patterns and best practices from the ecosystem
+- Reference existing implementations as examples of proper patterns
+- Avoid reinventing wheels or creating custom solutions when standard approaches exist
+- Emphasize consistency with existing codebase patterns
+
+### 3. Test-Driven Development Approach
+- Always include comprehensive testing strategy
+- Document current state with tests before making changes
+- Use TDD methodology for implementation phases
+- Include regression testing and validation phases
+
+### 4. Backward Compatibility
+- Ensure no breaking changes to existing functionality
+- Maintain existing behavior and data integrity
+- Include rollback strategies and risk mitigation
+- Consider gradual rollout approaches
+
+## Required Spec Structure
+
+### 1. Overview
+- Brief description of the problem and solution approach
+- Reference to original issue or requirements
+- High-level approach statement
+
+### 2. Problem Statement
+- Clear articulation of the current problem
+- Why the current approach is insufficient
+- What needs to be changed
+
+### 3. Current State Analysis
+- Detailed analysis of existing implementation
+- Identification of specific issues or gaps
+- Reference to working implementations (if applicable)
+- Clear comparison between current and desired state
+
+### 4. Requirements
+- **Functional Requirements**: What the system must do
+- **Non-Functional Requirements**: Performance, compatibility, consistency requirements
+- Clear, testable requirements
+- Prioritized by importance
+
+### 5. Test-Driven Development Strategy
+- **Phase 1**: Document current state with comprehensive tests
+- **Phase 2**: Implement changes using TDD approach
+- **Phase 3**: Validation and cleanup with regression testing
+- Each phase should have clear objectives and test categories
+
+### 6. Implementation Strategy
+- **Principles**: Core guiding principles for implementation
+- **Key Changes Required**: High-level changes needed
+- **Files Requiring Changes**: List of affected files with brief descriptions
+- Avoid prescriptive code examples
+
+### 7. Success Criteria
+- **Functional Success**: What the system should accomplish
+- **Technical Success**: Implementation quality metrics
+- **Business Success**: Value delivered (if applicable)
+
+### 8. Risk Mitigation
+- Identify potential risks
+- Provide specific mitigation strategies
+- Include rollback plans
+- Consider performance and compatibility impacts
+
+### 9. Rollback Strategy
+- Feature flag approach (if applicable)
+- Gradual rollout plan
+- Monitoring and alerting
+- Quick rollback procedures
+
+## Writing Guidelines
+
+### Do's
+- Use clear, concise language
+- Focus on requirements and principles
+- Include comprehensive testing strategy
+- Reference existing patterns and implementations
+- Emphasize backward compatibility
+- Provide clear success criteria
+- Include risk mitigation strategies
+
+### Don'ts
+- Don't include prescriptive code examples
+- Don't specify implementation details
+- Don't skip testing strategy
+- Don't ignore backward compatibility
+- Don't create custom solutions when standard ones exist
+- Don't forget rollback strategies
+- Don't include timeline estimates (leave to project management)
+
+## Quality Checklist
+
+Before finalizing a spec, ensure it includes:
+
+- [ ] Clear problem statement and current state analysis
+- [ ] Comprehensive requirements (functional and non-functional)
+- [ ] Test-driven development strategy with multiple phases
+- [ ] Implementation strategy focused on principles, not details
+- [ ] Success criteria that are measurable
+- [ ] Risk mitigation and rollback strategies
+- [ ] References to existing patterns and best practices
+- [ ] Emphasis on backward compatibility
+- [ ] No prescriptive implementation code
+- [ ] Appropriate for principal-level developers
+
+## Example Structure
+
+```markdown
+# [Feature Name] Implementation Spec
+
+## Overview
+[Brief description and approach]
+
+## Problem Statement
+[Clear articulation of the problem]
+
+## Current State Analysis
+[Detailed analysis of existing implementation]
+
+## Requirements
+### Functional Requirements
+[What the system must do]
+
+### Non-Functional Requirements
+[Performance, compatibility, consistency]
+
+## Test-Driven Development Strategy
+### Phase 1: Document Current State with Tests
+[Comprehensive testing of current behavior]
+
+### Phase 2: Implement Changes (TDD)
+[Test-first implementation approach]
+
+### Phase 3: Validation and Cleanup
+[Regression testing and validation]
+
+## Implementation Strategy
+### Principles
+[Core guiding principles]
+
+### Key Changes Required
+[High-level changes needed]
+
+### Files Requiring Changes
+[Affected files with descriptions]
+
+## Success Criteria
+[Measurable success metrics]
+
+## Risk Mitigation
+[Risk identification and mitigation strategies]
+
+## Rollback Strategy
+[Rollback procedures and monitoring]
+```
+
+## Notes
+- Specs should be self-contained and not require external context
+- Focus on enabling implementers to make good decisions
+- Prioritize maintainability and consistency
+- Always consider the broader system impact
+- Remember that specs are living documents that may evolve
