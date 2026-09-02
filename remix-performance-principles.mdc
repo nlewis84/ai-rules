@@ -1,0 +1,86 @@
+---
+description: Use actions for mutations and redirects (faster time to paint), loaders only for initial GET requests with minimal data. Actions run before loaders on POST requests.
+alwaysApply: false
+---
+# Remix Performance Principles
+
+## Action vs Loader for Redirects
+
+**Actions run BEFORE loaders on non-GET requests** - this is critical for performance.
+
+### When to Use Actions for Redirects
+- Form submissions and mutations (POST/PUT/DELETE)
+- Authentication flows (login, signup, OTP verification)
+- Any operation that should redirect immediately without waiting for data
+- **Faster time to paint** - redirect happens before loader blocks rendering
+
+### When to Use Loaders for Redirects
+- Authentication checks on initial page load (GET requests)
+- Authorization redirects before rendering
+- Data validation that requires redirect before page construction
+
+## Performance Patterns
+
+### 1. Mutations in Actions, Redirect Immediately
+```typescript
+// GOOD: Fast redirect, no blocking
+export async function action({ request }: ActionFunctionArgs) {
+  const result = await validateRegister(...);
+  // Redirect immediately - happens before any loaders
+  return redirect('/success');
+}
+
+// BAD: Blocks render waiting for loader
+export async function loader({ request }: LoaderFunctionArgs) {
+  const result = await slowOperation();
+  if (result) return redirect('/success');
+  return json({ data });
+}
+```
+
+### 2. Parallel Data Loading
+- Remix calls all loaders in parallel during client-side transitions
+- Keep loaders focused on data reading, not mutations
+- Avoid sequential dependencies between loaders
+
+### 3. Streaming with Defer
+- Use `defer()` for slow data operations
+- Stream large datasets while rendering fast data immediately
+- Only stream what's truly slow - avoid overhead for fast operations
+
+### 4. Single Fetch (v2.9+)
+- Consolidates multiple HTTP requests into one call
+- Reduces network overhead
+- Better for client-side transitions
+
+## Time to Paint Optimization
+
+### Principles
+1. **Actions first**: Mutations and redirects in actions happen before loaders
+2. **Minimal loaders**: Loaders should only fetch essential data for initial render
+3. **Avoid render+fetch waterfalls**: Don't fetch data in components with useEffect
+4. **Server-side execution**: Both loaders and actions run on server - leverage this
+
+### Anti-Patterns to Avoid
+- ❌ Slow operations in loaders that block initial render
+- ❌ Fetching data in components instead of loaders
+- ❌ Sequential loader dependencies
+- ❌ Redirects in loaders for mutation flows (use actions instead)
+
+### Best Practices
+- ✅ Mutations in actions with immediate redirects
+- ✅ Parallel data loading across routes
+- ✅ Defer slow data, render fast data immediately
+- ✅ Keep loaders lightweight for initial paint
+
+## Authentication Flow Pattern
+
+For auth flows (login, signup, OTP):
+1. **Entry point (index.tsx)**: Action handles form submission, sends OTP, redirects to verify
+2. **Verify page**: Action handles OTP validation, redirects immediately
+3. **Loader**: Only handles GET requests (initial page load), minimal data
+
+This ensures:
+- Fast redirects without waiting for loader data
+- Better time to paint
+- Proper separation of concerns (mutations vs reads)

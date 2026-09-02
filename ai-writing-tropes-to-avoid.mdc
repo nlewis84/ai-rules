@@ -1,0 +1,471 @@
+---
+description: >-
+  Write clear, concrete prose; avoid AI fingerprints and prefab phrasing.
+  Sources: Orwell (Politics and the English Language), tropes.fyi.
+alwaysApply: true
+---
+# Clear Writing (and AI Tropes to Avoid)
+
+## Principles
+
+Bad habits of language make fuzzy thought easier, and fuzzy thought breeds more bad habits. Prefabricated phrases do the writing for you. Clear English is a habit of mind, not a style costume.
+
+**Aim:** Varied, imperfect, specific prose. Meaning chooses the word. Prefer concrete nouns and verbs you can picture. When in doubt, use plainer words and shorter sentences.
+
+One use of a listed pattern can be fine. Repetition or stacking several patterns makes prose feel synthetic. Break any rule below sooner than write something ugly or unclear.
+
+### Positive rules (Orwell)
+
+1. Never use a metaphor, simile, or other figure of speech you are used to seeing in print.
+2. Never use a long word where a short one will do.
+3. If it is possible to cut a word out, always cut it out.
+4. Never use the passive where you can use the active.
+5. Never use a foreign phrase, a scientific word, or a jargon word if you can think of an everyday English equivalent.
+6. Break any of these rules sooner than say anything outright barbarous.
+
+Before each sentence, ask: What am I trying to say? What words will express it? What image will make it clearer? Is that image fresh? Could I put it more shortly? Have I said anything avoidably ugly? Can the reader picture the claim? Who did what?
+
+This is not grammar pedantry, Saxon-only fetishism, or fake colloquialism. It is not archaism. Scrap worn phrases; do not salvage obsolete ones for their own sake.
+
+The sections below catalog common AI fingerprints and related habits. Dodging every listed trope is not enough if the prose is still abstract, padded, or vague.
+
+---
+
+## Word Choice
+
+### Magic Adverbs ("quietly", "deeply", "fundamentally")
+
+**What:** Overuse of adverbs that imply subtle importance or understated power.
+
+**Why it reads as AI:** Models reach for these to make ordinary statements feel significant.
+
+**Avoid:** "quietly", "deeply", "fundamentally", "remarkably", "arguably" as default intensifiers.
+
+**Examples to avoid:**
+- "quietly orchestrating workflows, decisions, and interactions"
+- "the one that quietly suffocates everything else"
+- "a quiet intelligence behind it"
+
+### Overused AI Vocabulary ("delve", "leverage", "utilize")
+
+**What:** A small set of words that appear in a large share of model output.
+
+**Why it reads as AI:** "Delve" and similar terms became overrepresented in training data and generations.
+
+**Avoid:** "delve", "certainly", "utilize", "leverage" (as verb), "robust", "streamline", "harness" as default choices.
+
+**Examples to avoid:**
+- "Let's delve into the details..."
+- "Delving deeper into this topic..."
+- "We certainly need to leverage these robust frameworks..."
+
+**Prefer:** "look at", "go into", "use", "use well", "strong", "simplify", "use" — or more specific verbs.
+
+### Grandiose Nouns ("tapestry", "landscape", "paradigm")
+
+**What:** Fancy nouns used where a simpler word would do.
+
+**Why it reads as AI:** Repetition penalty pushes models away from "is/are" toward ornate synonyms and domain jargon.
+
+**Avoid:** "tapestry", "landscape" (for "field" or "domain"), "paradigm", "synergy", "ecosystem", "framework" as filler.
+
+**Examples to avoid:**
+- "The rich tapestry of human experience..."
+- "Navigating the complex landscape of modern AI..."
+- "The ever-evolving landscape of technology..."
+
+### The "Serves As" Dodge
+
+**What:** Replacing "is" or "are" with "serves as", "stands as", "marks", or "represents".
+
+**Why it reads as AI:** Avoidance of simple copulas in favor of fancier constructions.
+
+**Avoid:**
+- "The building serves as a reminder of the city's heritage."
+- "Gallery 825 serves as LAAA's exhibition space for contemporary art."
+- "The station marks a pivotal moment in the evolution of regional transit."
+
+**Prefer:** "The building is a reminder..."; "Gallery 825 is LAAA's exhibition space..."; "The station is a pivotal moment..."
+
+### Verbal False Limbs
+
+**What:** Padding a verb into a phrase with a weak general-purpose verb plus a noun or adjective.
+
+**Why it reads as AI / fog:** Saves the trouble of picking a real verb; adds syllables and blurs who did what.
+
+**Avoid:** "render inoperative", "militate against", "make contact with", "be subjected to", "give rise to", "give grounds for", "have the effect of", "play a leading role in", "make itself felt", "take effect", "exhibit a tendency to", "serve the purpose of", "in order to", "due to the fact that", "with respect to", "in view of", "the fact that".
+
+**Prefer:** A single clear verb ("break", "stop", "cause", "contact", "tend") and short prepositions ("to", "because", "about").
+
+### Abstract Fog and Cheer-Words
+
+**What:** Abstract or praise words that name no picture and commit to no specific claim.
+
+**Why it fails:** The reader cannot check what happened; the sentence sounds important without saying anything.
+
+**Avoid as empty fillers:** "optimize engagement", "drive outcomes", "unlock value", "deliver impact", "learnings", "opportunity areas", "align on next steps", and cheer-words like "innovative", "seamless", "delightful", "best-in-class", "holistic", "transformative" when they do not point to a concrete change.
+
+**Prefer:** Name the actor, the action, and the object ("Users tap Give and stay signed in"; "Latency dropped from 800ms to 200ms").
+
+### Needless Passive (Agency Dodge)
+
+**What:** Passive voice used to hide who did what, not because the patient rightly comes first.
+
+**Why it fails:** Softens responsibility and concreteness ("mistakes were made"; "the issue was introduced").
+
+**Prefer:** Active voice when you know the agent ("We shipped a bad migration"; "PR #1234 broke login"). Passive is fine when the doer is unknown, irrelevant, or secondary to the thing acted on.
+
+---
+
+## Sentence Structure
+
+### Negative Parallelism ("It's not X — it's Y")
+
+**What:** The "It's not X — it's Y" or "not because X, but because Y" pattern, often with an em dash.
+
+**Why it reads as AI:** Used repeatedly to frame every point as a surprise reframe. One use can work; many in one piece feel like a template.
+
+**Avoid:** Stacking this pattern. Use sparingly (e.g. once per piece).
+
+**Examples to avoid:**
+- "It's not bold. It's backwards."
+- "Feeding isn't nutrition. It's dialysis."
+- "Half the bugs you chase aren't in your code. They're in your head."
+
+### "Not X. Not Y. Just Z."
+
+**What:** Negating two or more things before revealing the point (dramatic countdown).
+
+**Why it reads as AI:** Manufactured tension and false sense of narrowing to "the truth".
+
+**Avoid:**
+- "Not a bug. Not a feature. A fundamental design flaw."
+- "Not ten. Not fifty. Five hundred and twenty-three lint violations across 67 files."
+
+### Self-Posed Rhetorical Questions ("The X? A Y.")
+
+**What:** A question the reader did not ask, answered in the next sentence for effect.
+
+**Why it reads as AI:** Feels like performative drama rather than natural argument.
+
+**Avoid:**
+- "The result? Devastating."
+- "The worst part? Nobody saw it coming."
+- "The scary part? This attack vector is perfect for developers."
+
+### Anaphora Abuse
+
+**What:** Repeating the same sentence opening several times in a row.
+
+**Why it reads as AI:** Lists of parallel clauses that sound like a template.
+
+**Avoid:**
+- "They assume that users will pay... They assume that developers will build... They assume that..."
+- "They could expose... They could offer... They could provide... They could create..."
+
+### Tricolon Abuse
+
+**What:** Overuse of the rule of three (or four or five) in quick succession.
+
+**Why it reads as AI:** One tricolon can work; several back-to-back feel formulaic.
+
+**Avoid:**
+- "Products impress people; platforms empower them. Products solve problems; platforms create worlds. Products scale linearly; platforms scale exponentially."
+
+### Filler Transitions ("It's worth noting", "Importantly")
+
+**What:** Phrases that introduce a new point without connecting it to the previous one.
+
+**Why it reads as AI:** Padding that signals structure without adding logic.
+
+**Avoid:** "It's worth noting", "It bears mentioning", "Importantly", "Interestingly", "Notably" as default openers.
+
+### Superficial "-ing" Analysis
+
+**What:** Tacking a present-participle phrase onto the end of a sentence to add shallow significance.
+
+**Why it reads as AI:** Attaches weight to mundane facts without real argument.
+
+**Avoid:**
+- "contributing to the region's rich cultural heritage"
+- "highlighting its importance", "reflecting broader trends", "contributing to the development of..."
+- "underscoring its role as a dynamic hub of activity and culture"
+
+### False Ranges ("from X to Y")
+
+**What:** "From X to Y" where X and Y are not on a real scale or spectrum.
+
+**Why it reads as AI:** Used as a fancy way to list two related things instead of a true range.
+
+**Avoid:**
+- "From innovation to implementation to cultural transformation."
+- "From problem-solving and tool-making to scientific discovery, artistic expression, and technological innovation."
+
+### Gerund Fragment Litany
+
+**What:** A claim followed by verbless gerund fragments as standalone sentences.
+
+**Why it reads as AI:** Structural tic; the claim already said it; the fragments add word count and a recognizable cadence.
+
+**Avoid:**
+- "Fixing small bugs. Writing straightforward features. Implementing well-defined tickets."
+- "Reviewing pull requests. Debugging edge cases. Attending architecture meetings."
+
+---
+
+## Paragraph Structure
+
+### Short Punchy Fragments
+
+**What:** Many very short sentences or fragments as standalone paragraphs for emphasis.
+
+**Why it reads as AI:** Trained for "readability" with one thought per sentence; reads inhuman in first-draft form.
+
+**Avoid:**
+- "He published this. Openly. In a book. As a priest."
+- "Platforms do."
+
+### Listicle in a Trench Coat
+
+**What:** Numbered or labeled points written as continuous prose with "The first... The second... The third...".
+
+**Why it reads as AI:** A list disguised as paragraphs.
+
+**Avoid:**
+- "The first wall is the absence of a free, scoped API... The second wall is the lack of delegated access... The third wall is..."
+
+---
+
+## Tone
+
+### False Suspense ("Here's the kicker", "Here's the thing")
+
+**What:** Transitions that promise a revelation but deliver an ordinary point.
+
+**Why it reads as AI:** Manufactured drama.
+
+**Avoid:** "Here's the kicker.", "Here's the thing", "Here's where it gets interesting", "Here's what most people miss"
+
+### Patronizing Analogies ("Think of it as...", "It's like a...")
+
+**What:** Defaulting to "Think of it as..." or "It's like a..." to explain concepts.
+
+**Why it reads as AI:** Teacher mode; often the analogy is less clear than the original idea.
+
+**Avoid:**
+- "Think of it like a highway system for data."
+- "Think of it as a Swiss Army knife for your workflow."
+
+### "Imagine a world where..."
+
+**What:** Opening with "Imagine" plus a list of desirable outcomes.
+
+**Why it reads as AI:** Classic sales-of-the-argument opener.
+
+**Avoid:** "Imagine a world where every tool you use — your calendar, your inbox... — has a quiet intelligence behind it..."
+
+### False Vulnerability
+
+**What:** Performative self-awareness or fake fourth-wall breaks.
+
+**Why it reads as AI:** Polished, risk-free "honesty" that doesn't add real perspective.
+
+**Avoid:** "And yes, I'm openly in love with the platform model"; "This is not a rant; it's a diagnosis"
+
+### "The truth is simple" / "History is clear"
+
+**What:** Claiming that something is obvious or simple instead of arguing it.
+
+**Why it reads as AI:** If you have to say it's clear, it often isn't.
+
+**Avoid:** "The reality is simpler and less flattering"; "History is unambiguous on this point"
+
+### Grandiose Stakes
+
+**What:** Framing every argument as world-historical or era-defining.
+
+**Why it reads as AI:** Inflated importance.
+
+**Avoid:** "This will fundamentally reshape how we think about everything."; "will define the next era of computing"; "something entirely new"
+
+### Pedagogical Openers ("Let's break this down", "Let's unpack this")
+
+**What:** Defaulting to teacher-student tone with hand-holding openers.
+
+**Why it reads as AI:** Assumes the reader needs a walkthrough even for expert audiences.
+
+**Avoid:** "Let's break this down step by step."; "Let's unpack what this really means."; "Let's explore this idea further."
+
+### Vague Attributions
+
+**What:** Citing "experts", "observers", "industry reports", "several publications" without naming them.
+
+**Why it reads as AI:** Authority without specificity; quantity of sources often inflated.
+
+**Avoid:** "Experts argue that..."; "Industry reports suggest that..."; "Observers have cited..."
+
+**Prefer:** Name the source or drop the attribution.
+
+### Invented Concept Labels
+
+**What:** Coined compound labels that sound analytical but aren't established (e.g. "supervision paradox", "acceleration trap", "workload creep").
+
+**Why it reads as AI:** Rhetorical shorthand instead of argument; several in one piece is a strong signal.
+
+**Avoid:** Appending abstract problem-nouns (paradox, trap, creep, divide, vacuum, inversion) to domain words and using them as if they were standard terms.
+
+---
+
+## Formatting
+
+### Em-Dash Overuse
+
+**What:** Many em dashes for pauses, asides, and pivots.
+
+**Why it reads as AI:** Humans might use a few per piece; models often use many.
+
+**Avoid:** More than a couple of em dashes per section. Prefer commas, parentheses, or separate sentences.
+
+### Bold-First Bullets
+
+**What:** Every bullet or list item starting with a bolded phrase.
+
+**Why it reads as AI:** Common in model-generated docs and READMEs; rare in hand-written lists.
+
+**Avoid:** Making every bullet "**Keyword**: explanation...". Use bold only when it adds real scan-value.
+
+### Unicode Decoration
+
+**What:** Unicode arrows (→), smart/curly quotes, and other characters that aren't on a standard keyboard.
+
+**Why it reads as AI:** Typists tend to use straight quotes and ASCII arrows (-> or =>).
+
+**Avoid:** "Input → Processing → Output"; "Smart quotes" — use straight quotes and -> or => unless the format requires Unicode.
+
+---
+
+## Composition
+
+### Fractal Summaries
+
+**What:** Summarizing at every level — subsection, section, and document — so the piece repeats the same message.
+
+**Why it reads as AI:** Template-driven structure.
+
+**Avoid:** "In this section, we'll explore... [long passage] ...as we've seen in this section."; long conclusions that restate every point.
+
+### The Dead Metaphor
+
+**What:** One metaphor repeated many times across the piece.
+
+**Why it reads as AI:** Humans tend to use a metaphor once and move on; models repeat it.
+
+**Avoid:** Using the same metaphor (e.g. "ecosystem", "walls and doors", "primitives") 5–10+ times.
+
+### Historical Analogy Stacking
+
+**What:** Rapid-fire listing of companies or tech revolutions to build authority.
+
+**Why it reads as AI:** Especially common in technical writing; feels like filler.
+
+**Avoid:** "Apple didn't build Uber. Facebook didn't build Spotify. Stripe didn't build Shopify..."; "Take Spotify... Or consider Uber... Airbnb followed..."
+
+### One-Point Dilution
+
+**What:** One argument restated in many ways across many words.
+
+**Why it reads as AI:** Padding a simple thesis to feel "comprehensive".
+
+**Avoid:** Turning an 800-word argument into 4000 words of rephrased repetition.
+
+### Content Duplication
+
+**What:** Repeating whole sections or paragraphs verbatim in the same piece.
+
+**Why it reads as AI:** Model losing track of what it already wrote.
+
+**Avoid:** Publishing without a pass to remove duplicate blocks.
+
+### Signposted Conclusions
+
+**What:** Explicitly announcing the end with "In conclusion", "To sum up", or "In summary".
+
+**Why it reads as AI:** Template structure; readers can feel the conclusion without the label.
+
+**Avoid:** "In conclusion, the future of AI depends on..."; "To sum up, we've explored three key themes..."
+
+### "Despite its challenges..."
+
+**What:** Acknowledging problems then immediately dismissing them in a fixed rhythm: "Despite [positive], [subject] faces challenges..." then "Despite these challenges, [optimistic conclusion]."
+
+**Why it reads as AI:** Rigid formula.
+
+**Avoid:** The "Despite X... Despite these challenges, Y" pattern. If you acknowledge problems, address them or leave the tension unresolved.
+
+---
+
+## Quick Reference
+
+| Category | Trope / pattern | Prefer / fix |
+|---|---|---|
+| Clarity | Abstract fog, cheer-words | Actor + action + object you can picture |
+| Clarity | Verbal false limbs | One real verb; cut padding phrases |
+| Clarity | Needless passive | Active when the agent matters |
+| Word choice | Magic adverbs | Plain verbs and nouns; drop intensifiers |
+| Word choice | Delve, leverage, utilize | "look at", "use", specific verbs |
+| Word choice | Tapestry, landscape | "field", "domain", or be specific |
+| Word choice | "Serves as" | "is" / "are" |
+| Sentence | "It's not X — it's Y" | Use once per piece at most |
+| Sentence | "Not X. Not Y. Just Z." | State the point directly |
+| Sentence | "The X? A Y." | Assert; skip the fake question |
+| Sentence | Anaphora / tricolon abuse | Vary openings and list length |
+| Sentence | "It's worth noting" | Omit or connect to the prior sentence |
+| Sentence | False ranges, gerund litany | Real spectra; full sentences |
+| Paragraph | Short punchy fragments | Normal sentence rhythm |
+| Paragraph | Listicle in prose | Real list or varied openings |
+| Tone | "Here's the kicker" | State the point |
+| Tone | "Think of it as..." | Explain directly |
+| Tone | "Imagine a world..." | Argue without the fantasy opener |
+| Tone | Grandiose stakes | Match stakes to the claim |
+| Tone | Vague attributions | Name sources or drop them |
+| Tone | Invented labels | Standard terms, or define and argue |
+| Formatting | Em dashes, bold-first bullets | Fewer dashes; bold only when it helps |
+| Formatting | Unicode decoration | Straight quotes, -> or => |
+| Composition | Fractal summaries | One summary or none |
+| Composition | Dead metaphor, analogy stack | One metaphor; fewer name-drops |
+| Composition | Signposted conclusion | End without "In conclusion" |
+| Composition | "Despite its challenges" | Address challenges or leave tension |
+
+## Red Flags
+
+- Same sentence structure three or more times in a row
+- More than two em dashes in a short passage
+- Every bullet starts with a bold label
+- "It's not X — it's Y" or "not because X, but because Y" more than once
+- "delve", "leverage", "robust", "streamline" in quick succession
+- "Imagine", "Think of it as", "Here's the thing" in the first few paragraphs
+- "Experts say" or "Studies show" with no citation
+- A single metaphor repeated in every section
+- "In conclusion" or "To sum up" at the end
+- "Despite its challenges" followed by an upbeat ending
+- Sentences full of "give rise to", "play a role in", "in order to", "due to the fact that"
+- Praise or outcome words with no concrete referent ("unlock value", "seamless", "holistic")
+- Passive that hides a known agent ("the bug was introduced", "mistakes were made")
+
+## Before Publishing (Gate)
+
+```
+Scan the draft for:
+1. Meaning first: Can I picture each claim? Who did what?
+2. Orwell checks: long word where a short one works? cuttable words? dead metaphor? needless passive? jargon with an everyday twin?
+3. Repeated sentence patterns (anaphora, "It's not X — it's Y", "Not X. Not Y. Just Z.")
+4. Overused words from the Avoid lists (delve, leverage, tapestry, landscape, quietly, etc.)
+5. Verbal false limbs and abstract fog / cheer-words
+6. Filler transitions ("It's worth noting", "Importantly", "Here's the thing")
+7. Formatting tics (bold-first bullets, em dashes everywhere, Unicode arrows)
+8. Structural repetition (summaries at every level, same metaphor throughout, signposted conclusion)
+
+If several tropes appear, or one appears repeatedly, or the prose stays vague after the tropes are gone, revise for concrete language and variety.
+```
+
+A single use of any pattern may be fine. Stacking many tropes, or writing fog without tropes, is the failure mode. Prefer concrete words; let meaning choose them.
