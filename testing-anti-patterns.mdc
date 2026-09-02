@@ -1,5 +1,5 @@
 ---
-description: Never test mock behavior. Never add test-only methods to production classes. Understand dependencies before mocking.
+description: Never test mock behavior. Never add test-only methods to production classes. Understand dependencies before mocking. Avoid unreachable assertions and dead branches in tests that confuse coverage.
 alwaysApply: false
 ---
 # Testing Anti-Patterns
@@ -12,7 +12,7 @@ Tests must verify real behavior, not mock behavior. Mocks are a means to isolate
 
 **Following strict TDD prevents these anti-patterns.**
 
-**Announce at start:** "I'm using the Testing Anti-Patterns skill to avoid testing mock behavior and test-only methods."
+**Announce at start:** "I'm using the Testing Anti-Patterns skill to avoid testing mock behavior, test-only methods, and coverage-trap assertions."
 
 ## The Iron Laws
 
@@ -20,6 +20,7 @@ Tests must verify real behavior, not mock behavior. Mocks are a means to isolate
 1. NEVER test mock behavior
 2. NEVER add test-only methods to production classes
 3. NEVER mock without understanding dependencies
+4. NEVER structure assertions so the success path skips lines (unreachable code, dead branches)
 ```
 
 ## Anti-Pattern 1: Testing Mock Behavior
@@ -229,7 +230,93 @@ BEFORE creating mock responses:
   If uncertain: Include all documented fields
 ```
 
-## Anti-Pattern 5: Integration Tests as Afterthought
+## Anti-Pattern 5: Unreachable Assertions and Coverage Traps
+
+**The violation (unreachable line on every green run):**
+```typescript
+// BAD: expect.fail only runs if the code forgot to throw — so it stays uncovered when tests pass
+it('redirects when unauthenticated', async () => {
+  try {
+    await requireUserId(request);
+    expect.fail('should have thrown');
+  } catch (response) {
+    expect(response.status).toBe(302);
+  }
+});
+```
+
+**Why this is wrong:**
+- Coverage tools (Vitest, Codecov, IDE gutters) correctly mark `expect.fail` as never executed when the test passes
+- You get persistent noise and a false sense that "something is missing" in the report
+- The pattern duplicates what the test framework already expresses: "this promise must reject"
+
+**The fix:**
+```typescript
+// GOOD: Assertion runs on the rejection path every time
+await expect(requireUserId(request)).rejects.toSatisfy((response) => {
+  return (
+    response instanceof Response &&
+    response.status === 302 &&
+    response.headers.get('Location')?.includes('/login')
+  );
+});
+
+// GOOD: Or capture once and assert in order (no fake "should have thrown" line)
+const rejected = await requireUserId(request).catch((e) => e);
+expect(rejected).toBeInstanceOf(Response);
+expect(rejected.status).toBe(302);
+```
+
+**Related violation (dead branch inside a matcher):**
+```typescript
+// BAD: Early return false is only hit when the value is wrong — on a passing run, that branch never runs
+await expect(fn()).rejects.toSatisfy((response) => {
+  if (!(response instanceof Response) || response.status !== 302) {
+    return false; // uncovered on every successful test run
+  }
+  return response.headers.get('Location') === '/';
+});
+```
+
+**Why this is wrong:**
+- Same coverage problem: branch coverage flags lines that only run when the assertion is already failing
+- The editor shows red gutters even though the test is correct
+
+**The fix:**
+```typescript
+// GOOD: One boolean expression on the happy path — every line executes when the test passes
+await expect(fn()).rejects.toSatisfy((response) => {
+  const location = response.headers.get('Location');
+  return (
+    response instanceof Response &&
+    response.status === 302 &&
+    location === '/'
+  );
+});
+```
+
+Use separate `expect` calls instead of a defensive `if` inside `toSatisfy` when you need type-narrowing before calling methods on the value.
+
+### Gate Function
+
+```
+BEFORE committing a test that expects throw/reject:
+  Ask: "Are there lines that only run when production misbehaves?"
+
+  IF yes (e.g. expect.fail after await, early return false in matcher):
+    STOP - Refactor to expect().rejects / linear expects / single return with &&
+
+BEFORE using toSatisfy, .toMatchObject, or custom predicates:
+  Ask: "Does every line in the predicate run on a passing test?"
+
+  IF a branch only runs when the assertion fails:
+    STOP - Flatten to one expression or split into multiple expects
+
+AFTER refactor:
+  Run coverage on the test file — success-path lines should not stay red without reason
+```
+
+## Anti-Pattern 6: Integration Tests as Afterthought
 
 **The violation:**
 ```
@@ -282,6 +369,8 @@ TDD cycle:
 | Test-only methods in production | Move to test utilities |
 | Mock without understanding | Understand dependencies first, mock minimally |
 | Incomplete mocks | Mirror real API completely |
+| Unreachable `expect.fail` / try-catch throw tests | `expect().rejects` or catch + sequential expects |
+| Dead `if` / early `return false` inside matchers | Single `return` with `&&` or multiple `expect` calls |
 | Tests as afterthought | TDD - tests first |
 | Over-complex mocks | Consider integration tests |
 
@@ -293,6 +382,8 @@ TDD cycle:
 - Test fails when you remove mock
 - Can't explain why mock is needed
 - Mocking "just to be safe"
+- `expect.fail('should have thrown')` or similar after an `await` that is supposed to throw
+- `if (...) return false` (or early return) inside `toSatisfy` / custom matchers when only the failure path uses that branch
 
 ## The Bottom Line
 
@@ -301,3 +392,5 @@ TDD cycle:
 If TDD reveals you're testing mock behavior, you've gone wrong.
 
 Fix: Test real behavior or question why you're mocking at all.
+
+Structure throw/reject tests so passing runs execute your assertions: no unreachable `expect.fail`, no dead branches in matchers that only run when the assertion already failed.

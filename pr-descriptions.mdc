@@ -1,7 +1,123 @@
 ---
-description: "Guidelines for generating concise, well-structured GitHub PR descriptions with clear issue tracking, solution summaries, and testing instructions. Emphasizes brevity and actionable content for efficient code review."
-alwaysApply: false
+description: "Guidelines for generating concise, well-structured GitHub PR descriptions with clear issue tracking, solution summaries, and testing instructions. Use fixed emoji section headings (Issue, Solution, To Test, and Screenshots when the change is user-facing UI). Write To Test steps for non-dev QA: plain language, on-screen actions and visible outcomes — no file paths, breakpoints, or code jargon. Capture real browser screenshots for UI changes; never invent images or commit them to the PR branch. Use GitHub callouts (> [!NOTE], TIP, IMPORTANT, WARNING, CAUTION) when stack order, deploy prerequisites, or risks apply. Use a reviewer patch file (e.g. reviewer-test.patch) with `git apply` in To Test when it helps reviewers verify behavior with minimal setup. Emphasizes brevity and actionable content. Keep descriptions SHORT. ALWAYS return PR descriptions as raw markdown code blocks (```markdown ... ```) so they can be easily copied and pasted."
+alwaysApply: true
 ---
+**Output format:** ALWAYS wrap PR descriptions in a ```markdown code block so they can be copied directly.
+
+**Brevity (default):** Keep the whole description skimmable in about 15 seconds. Aim for these limits unless the user asks for more:
+- Issue: 1-3 sentences. State the bug and its impact; do not narrate the debugging journey or paste discovery data (counts, row names, queries) unless one concrete number aids review.
+- Solution: 2-4 bullets. Name what changed; do not restate the issue.
+- To Test: 3-7 numbered steps a non-dev QA person can follow without asking a developer for help.
+- Screenshots: only for user-facing UI; one template table, real before/after when it is a visual bug.
+
+Write the tightest version first. Only expand when the user requests detail. Even when asked for "anecdotal evidence", fold it into a single sentence or number, not a paragraph.
+
+**Section headings (keep emojis):** Use these headings in order: `## 🐛 Issue`, `## ✏️ Solution`, `## 🔬 To Test`. When the change is user-facing UI, add `## 📸 Screenshots` after To Test (same heading as `.github/PULL_REQUEST_TEMPLATE.md`). Do not drop the emojis, substitute plain text headings, or reorder these sections when editing or rewriting a PR description unless the user explicitly asks for a different format.
+
+## 🔬 To Test (write for QA, not for developers)
+
+**Audience:** A non-developer QA person. They know the product UI; they do not read code. Default to this audience on every PR. Only use developer-oriented steps (breakpoints, file paths, SQL, curl) when the change is literally untestable without them (e.g. a migration) — and even then keep the language as plain as possible.
+
+**Do:**
+- Tell them what to open, tap, or click, in order
+- Say what they should see on screen when it works (and, when useful, what they should *not* see)
+- Include setup that matters (logged in vs logged out, which app/tab, force-close and reopen if needed)
+- Name screens the way users see them ("Give tab", "success page", "avatar")
+
+**Don't:**
+- Reference file paths, line numbers, function names, env vars, or breakpoints
+- Tell them to run `yarn test`, `yarn vitest`, `jest`, or any automated test runner (CI runs those)
+- Use shorthand only a developer would parse ("Anonymous browsing → Login → Logout flow")
+- Assume they know what "token handoff", "session", or similar means — describe the visible result instead
+
+**Good example (product change):**
+
+```markdown
+## 🔬 To Test
+
+1. Open the Android app and make sure you are logged in
+2. Tap the Give tab
+3. Confirm the giving page loads already signed in (your avatar/profile is visible; you are not asked to verify your phone number)
+4. Tap your avatar on the giving page and log out
+5. Force-close the app (swipe it away from recent apps)
+6. Reopen the app, stay logged in, and tap Give again
+7. Confirm you are signed in automatically again — no phone number / code prompt
+```
+
+**Bad example (same change, developer-speak — never write this):**
+
+```markdown
+## 🔬 To Test
+
+1. Set breakpoint at `useRedirectUrl.ts` - confirm token attached to `/r`
+2. Hit Give tab WebView with `APOLLOS_WEB_URL` override
+3. Verify `getToken` returns `['token', ...]` for custom host
+4. Logout in webview → kill app → reopen → confirm session cookie set
+```
+
+## 📸 Screenshots (user-facing UI only)
+
+Add this section when a person can see the change on screen (layout, copy, empty states, clipped menus, new controls). Skip it for migrations, API-only, or flag wiring with no visible UI.
+
+Match the repo PR template tables. Drop columns that do not apply (admin-only desktop can omit Phone / Tablet). For a visual bug, prefer before / after:
+
+```markdown
+## 📸 Screenshots
+
+| Desktop (before) | Desktop (after) |
+| -------------- | --------------- |
+| ![Before](https://files.catbox.moe/before.png) | ![After](https://files.catbox.moe/after.png) |
+```
+
+**Real captures only.** Run the product (local or staging) in a browser and shoot the actual screen. Playwright against the running app is fine. Do not generate, draw, or invent UI images. Do not reuse a marketing / locked-state screenshot as if it were the live editor.
+
+**Before / after.** For a visual bug, capture the broken UI first (unfixed branch or `main`), then the fixed UI on this branch. Same viewport, same screen, same account.
+
+**Never commit screenshot files.** Do not `git add` png/jpg/gif/webp/mp4, and do not put them under `.github/pr-assets`, `docs/`, or anywhere else on the PR branch. If they are already committed, delete them from the branch.
+
+Host the files outside git, then paste public HTTPS URLs into the PR body. For CLI capture from the running app and headless attach to the PR, follow https://github.com/ApollosProject/apollos-skills/blob/main/skills/pr-proof/SKILL.md.
+
+```bash
+# Write captures to /tmp, not the repo
+curl -sF "reqtype=fileupload" -F "fileToUpload=@/tmp/before.png" https://catbox.moe/user/api.php
+# Fallback: curl -sF "file=@/tmp/before.png" https://0x0.st
+```
+
+GitHub's image proxy needs a URL anyone can fetch. Do not use Linear `uploads.linear.app` links (they 401 in the PR). Do not use `gh gist create` (it rejects binary files). Delete the local files after the URLs are in the description.
+
+## GitHub callouts (when they apply)
+
+Use GitHub alert syntax inside PR bodies to surface context reviewers might skim past. Do not add a callout to every PR — only when the content fits.
+
+```markdown
+> [!NOTE]
+> Highlights information that users should take into account, even when skimming.
+
+> [!TIP]
+> Optional information to help a user be more successful.
+
+> [!IMPORTANT]
+> Crucial information necessary for users to succeed.
+
+> [!WARNING]
+> Critical content demanding immediate user attention due to potential risks.
+
+> [!CAUTION]
+> Negative potential consequences of an action.
+```
+
+When to use which:
+
+| Callout | Use for |
+|---------|---------|
+| NOTE | Stack order, related PRs, scope boundaries ("migration-only; code in #1234"), follow-up work elsewhere |
+| TIP | Optional reviewer shortcuts (env var, church slug, feature flag) that make manual testing easier — put these in a TIP, not in the numbered QA steps |
+| IMPORTANT | Merge/deploy order, prerequisites, or behavior reviewers must not miss |
+| WARNING | Time-sensitive risk (prod deploy window, breaking change if steps skipped) |
+| CAUTION | Irreversible or harmful actions (data migration order, do not run backfill before deploy) |
+
+Place callouts after the relevant section (usually Issue or Solution), not instead of normal prose.
+
 Example of good PR description format:
 
 ```markdown
@@ -9,21 +125,84 @@ Example of good PR description format:
 
 Closes APO-4736
 
+Anonymous users who log in mid-session lose their prior anonymous ID, so analytics cannot join pre-login and post-login activity.
+
 ## ✏️ Solution
 
-Enhanced anonymous ID handling and analytics integration:
-
-- Preserve custom anonymous IDs during login
-- Fix identify calls for user association
-- Add reset to clear Segment state
-- Update OTP flow with proper handling
-- Add tests for anonymous sessions and flows
+- Preserve the custom anonymous ID across login
+- Identify the user with the correct ID after OTP
+- Reset Segment state on logout so the next anonymous session is fresh
 
 ## 🔬 To Test
 
-1. Set breakpoint at `api.otp.tsx:267` - Login via OTP, verify anonymous ID preservation
-2. Set breakpoint at `_layout.tsx:356` - After login, verify analytics identify call with correct user ID
-3. Anonymous browsing → Login → Logout flow
-4. Verify Segment anonymous ID changes after logout
-5. Confirm `previousAnonymousUserId` is set during login
+1. Open the app while logged out and browse a few screens
+2. Log in with a phone number / code
+3. Confirm you land in the app as yourself (your name/avatar shows)
+4. Log out
+5. Confirm you are anonymous again (no name/avatar; login is offered)
 ```
+
+Example with a callout (stacked PR):
+
+```markdown
+## 🐛 Issue
+
+[APO-10047](https://linear.app/differential/issue/APO-10047)
+
+Migration-only PR: renames `charges.source_transfer_id` to `transfer_id`.
+
+> [!NOTE]
+> Application code changes ship in stacked [#3447](https://github.com/.../pull/3447). Merge and deploy this PR before #3447.
+
+## ✏️ Solution
+
+Migration 320: `renameColumn` with `setDynamicMasking` (same pattern as migration 288).
+
+## 🔬 To Test
+
+1. On a staging/dev database, run the migration forward
+2. Confirm the `charges` table shows a column named `transfer_id` (not `source_transfer_id`)
+3. Run the migration backward
+4. Confirm the column is named `source_transfer_id` again
+```
+
+Example with user-facing UI (screenshots hosted off-branch):
+
+```markdown
+## 🐛 Issue
+
+Closes APO-11368
+
+On Apps > Mobile > a tab > Display, the icon list is cut off by the Tab Setup card, or sits under the sticky header.
+
+## ✏️ Solution
+
+- Portal the icon list out of the scroll card
+- Pin it to the trigger so it stays above the sticky header
+
+## 🔬 To Test
+
+1. Open Admin and go to Apps > Mobile
+2. Select a tab, then expand Display
+3. Click the icon next to the tab name
+4. Confirm the full icon list is visible (not cut off, not hidden under "Tab Setup")
+
+## 📸 Screenshots
+
+| Desktop (before) | Desktop (after) |
+| -------------- | --------------- |
+| ![Before](https://files.catbox.moe/before.png) | ![After](https://files.catbox.moe/after.png) |
+```
+
+## Reviewer patch (when useful)
+
+For PRs where reviewers need to **see or trigger the change** with minimal setup (e.g. feature flags, env-driven behavior, one-off UI), include a small patch they can apply:
+
+1. Create a patch file in the repo root (e.g. `reviewer-test.patch`) with a minimal diff that exercises the change (e.g. wire up a flag and show a banner, or add a one-off log).
+2. In **To Test**, paste the patch content wrapped in `<details>`/`<summary>` so it’s collapsible (summary = filename, e.g. `reviewer-test.patch`; body = fenced code block with the diff). Tell reviewers to save that block to the filename, run `git apply <patch-file>`, set any required env, restart, and what to expect.
+3. Note that the patch is for testing only and should be reverted before merge.
+
+In the PR body, wrap the patch in collapsible details so the diff doesn’t dominate the description: `<details>`, `<summary>filename.patch</summary>`, then a fenced code block (e.g. `diff`) containing the patch, then `</details>`.
+
+**Use when:** The PR changes behavior that’s easier to verify by applying a small, reversible patch (feature flags, env vars, toggles).  
+**Skip when:** The PR is trivial, the patch would be large or brittle, or normal "To Test" steps are enough.

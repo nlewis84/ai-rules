@@ -1,0 +1,68 @@
+---
+description: Five-step TDD flow for Linear issue plans - RED, GREEN, REVERT, REWRITE, REFACTOR. Use when creating a plan for a new Linear issue.
+alwaysApply: true
+---
+
+# Linear Issue Planning Flow
+
+When creating a plan for a new Linear issue, follow this five-step flow. It combines TDD with a spike-and-rewrite cycle to avoid over-engineering.
+
+## When to Use
+
+- Creating a plan for a new Linear issue (bug fix, feature, refactor)
+- Before writing any implementation code
+
+## The Five Steps
+
+### Step 1: RED - Write Failing Test
+
+- Write **meaningful test(s)** that prove the bug or desired behavior. Start with one; add more only when the behavior warrants it
+- **No production code yet**
+- Run the test. It must fail for the right reason (missing feature, not a typo)
+- **Lock the test** - do not modify it after this step
+
+### Step 2: GREEN - Minimal Spike
+
+- Write the **simplest code** to make the test pass
+- Do not over-engineer. Get to green.
+- Run the test. It must pass.
+
+### Step 3: REVERT - Remove Non-Test Code
+
+- Delete the implementation (new files, changes to existing files)
+- **Keep the test.** The test is the spec; it will fail again
+- Do not touch the test
+
+### Step 4: REWRITE - Simpler Solution
+
+- With what you learned from the spike, write a **cleaner solution**
+- The test drives the same behavior
+- Prefer **separate files** over large inline blocks - jumping around a single large file is more daunting than well-named modules
+- Avoid over-engineering from the first pass
+
+### Step 5: REFACTOR - Clean Up
+
+- Remove dead code, improve names, extract helpers if needed
+- Ensure all tests still pass
+
+## Plan Document Structure
+
+When writing the plan (e.g. in `docs/APO-XXXX-description-plan.md`):
+
+1. **TDD Approach** - State that you follow this flow; reference test-driven-development rule
+2. **Problem** - What is broken or missing
+3. **Solution** - High-level approach
+4. **Implementation** - One subsection per step (1-5) with concrete instructions
+5. **Files to Change** - Table mapping steps to files
+
+## Execution
+
+- **Stop between each step** when executing the plan
+- Verify RED (test fails), verify GREEN (test passes), verify REVERT (test fails again), verify REWRITE (test passes), verify REFACTOR (tests pass)
+
+## Key Principles
+
+- Meaningful tests, not a flood - add only what the behavior warrants
+- The test is locked after Step 1 - it defines the contract
+- The spike teaches you; the rewrite is what you ship
+- Separate files > large inline blocks for readability
